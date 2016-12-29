@@ -1,11 +1,18 @@
-var socket = io(); // io(); its vailable in the libary i loaded in
-socket.on('connect', ()=> {
+var socket = io();
+
+socket.on('connect', function () {
   console.log('Connected to server');
+
+  socket.emit('createMessage', {
+    from: 'Andrew',
+    text: 'Yup, that works for me.'
+  });
 });
-socket.on('disconnect', ()=> {
-  console.log('disconnected from server');
-})
-//listen for event
+
+socket.on('disconnect', function () {
+  console.log('Disconnected from server');
+});
+
 socket.on('newMessage', function (message) {
-  console.log(message);
+  console.log('newMessage', message);
 });
