@@ -16,11 +16,14 @@ io.on('connection', (socket)=>{  // connection let u listen to new connection an
   socket.on('disconnect', ()=>{
     console.log('disconnected from client');
   })
-  //emit event
-  socket.emit('newMessage', {from: 'Digotetso', text: 'Hey there', createAt: '10:00'});
-  //Listen for event
+  //Listen for event & emit or broadcast
   socket.on('createMessage', function (message) {
     console.log(message);
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime()
+    });
   } );
 
 });
